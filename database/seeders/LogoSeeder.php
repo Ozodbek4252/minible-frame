@@ -14,7 +14,6 @@ class LogoSeeder extends Seeder
     {
         Logo::create([
             'main_logo' => 'assets/images/logo/main.png',
-            'secondary_logo' => 'assets/images/logo/secondary.png',
             'small_logo' => 'assets/images/logo/small-logo.png',
         ]);
     }

@@ -13,8 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $icon
  * @property bool $is_published
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property string $created_at
+ * @property string $updated_at
  */
 class Lang extends Model
 {
@@ -25,5 +25,11 @@ class Lang extends Model
         'name',
         'icon',
         'is_published',
+    ];
+
+    protected $casts = [
+        'is_published' => 'boolean',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 }

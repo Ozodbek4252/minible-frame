@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $main_logo
- * @property string $secondary_logo
  * @property string $small_logo
  * @property string $created_at
  * @property string $updated_at
@@ -21,7 +20,6 @@ class Logo extends Model
 
     protected $fillable = [
         'main_logo',
-        'secondary_logo',
         'small_logo'
     ];
 
@@ -33,7 +31,6 @@ class Logo extends Model
     protected $casts = [
         'id' => 'integer',
         'main_logo' => 'string',
-        'secondary_logo' => 'string',
         'small_logo' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'

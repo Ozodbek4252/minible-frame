@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $extension
  * @property string $type
- * @property Carbon $created_at
- * @property Carbon $updated_at
+ * @property string $created_at
+ * @property string $updated_at
  */
 class File extends Model
 {

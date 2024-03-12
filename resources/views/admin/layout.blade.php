@@ -8,13 +8,13 @@
     <meta content="Vortex: Educational CRM" name="description" />
     <meta content="Themesbrand" name="author" />
 
-    @include('includes.styles')
+    @include('admin.includes.styles')
 </head>
 
 <body>
     <div id="layout-wrapper">
-        @include('includes.header')
-        @include('includes.sidebar')
+        @include('admin.includes.header')
+        @include('admin.includes.sidebar')
 
         <div class="main-content">
             <div class="page-content">
@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    @include('includes.scripts')
+    @include('admin.includes.scripts')
 </body>
 
 </html>

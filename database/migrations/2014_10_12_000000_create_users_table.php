@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('profile_image')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

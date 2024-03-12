@@ -13,7 +13,7 @@ class LogoController extends Controller
     public function index()
     {
         $logo = Logo::first();
-        return view('dashboard.logo.index', compact('logo'));
+        return view('admin.logo.index', compact('logo'));
     }
 
     public function update(Request $request, Logo $logo)

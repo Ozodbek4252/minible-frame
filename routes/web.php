@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\LangController;
 use App\Http\Controllers\Dashboard\LogoController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 
 /*
@@ -19,7 +19,7 @@ use App\Http\Controllers\Dashboard\ProfileController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front.welcome');
 });
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'doLogin'])->name('login.post');

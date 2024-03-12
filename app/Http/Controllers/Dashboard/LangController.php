@@ -18,7 +18,7 @@ class LangController extends Controller
     {
         $langs = Lang::paginate(20);
 
-        return view('dashboard.langs.index', compact('langs'));
+        return view('admin.langs.index', compact('langs'));
     }
 
     /**
