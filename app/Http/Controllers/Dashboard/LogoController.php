@@ -21,7 +21,6 @@ class LogoController extends Controller
         try {
             $request->validate([
                 'main_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'secondary_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'small_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
@@ -37,20 +36,6 @@ class LogoController extends Controller
                 // Move the uploaded file to the public/assets/images/logo directory, not in storage
                 $request->file('main_logo')->move(public_path('assets/images/logo'), $generatedName);
                 $mainLogoPath = 'assets/images/logo/' . $generatedName;
-            }
-
-            $secondaryLogoPath = $logo->secondary_logo;
-            if ($request->hasFile('secondary_logo')) {
-                if (File::exists($logo->secondary_logo)) {
-                    File::delete($logo->secondary_logo);
-                }
-
-                // generate name for the icon
-                $generatedName = 'secondary_logo_' . time() . '.' . $request->file('icon')->getClientOriginalExtension();
-
-                // Move the uploaded file to the public/assets/images/logo directory, not in storage
-                $request->file('secondary_logo')->move(public_path('assets/images/logo'), $generatedName);
-                $secondaryLogoPath = 'assets/images/logo/' . $generatedName;
             }
 
             $smallLogoPath = $logo->small_logo;
@@ -69,7 +54,6 @@ class LogoController extends Controller
 
             $logo->update([
                 'main_logo' => $mainLogoPath,
-                'secondary_logo' => $secondaryLogoPath,
                 'small_logo' => $smallLogoPath,
             ]);
 

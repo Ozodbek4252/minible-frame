@@ -11,9 +11,8 @@
                     <table class="table mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>{{ __('body.Main logo') }}</th>
-                                <th>{{ __('body.Secondary logo') }}</th>
-                                <th>{{ __('body.Small logo') }}</th>
+                                <th>{{ __('body.Main Logo') }}</th>
+                                <th>{{ __('body.Small Logo') }}</th>
                                 <th>{{ __('body.Actions') }}</th>
                             </tr>
                         </thead>
@@ -22,10 +21,6 @@
                                 <td>
                                     <img src="{{ asset('/' . $logo->main_logo) }}" style="width: 200px; height: auto;"
                                         alt="main logo">
-                                </td>
-                                <td>
-                                    <img src="{{ asset('/' . $logo->secondary_logo) }}" style="width: 120px; height: auto;"
-                                        alt="secondary logo">
                                 </td>
                                 <td>
                                     <img src="{{ asset('/' . $logo->small_logo) }}" style="width: 120px; height: auto;"
@@ -70,15 +65,6 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="mb-3 d-flex flex-column-reverse">
-                                                            <img src="{{ asset('/' . $logo->secondary_logo) }}"
-                                                                style="width: 100px; height: auto;" alt="main logo">
-                                                            <label class="form-label" for="logo-icon">
-                                                                {{ __('body.Secondary Logo Preview') }}
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="mb-3 d-flex flex-column-reverse">
                                                             <img src="{{ asset('/' . $logo->small_logo) }}"
                                                                 style="width: 100px; height: auto;" alt="main logo">
                                                             <label class="form-label" for="logo-icon">
@@ -100,17 +86,8 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="secondary-logo">
-                                                                {{ __('body.Secondary Logo') }}
-                                                            </label>
-                                                            <input name="secondary_logo" type="file" class="form-control"
-                                                                id="secondary-logo">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="mb-3">
                                                             <label class="form-label" for="small-logo">
-                                                                {{ __('body.Small logo') }}
+                                                                {{ __('body.Small Logo') }}
                                                             </label>
                                                             <input name="small_logo" type="file" class="form-control"
                                                                 id="small-logo">
