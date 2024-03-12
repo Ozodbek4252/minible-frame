@@ -15,4 +15,6 @@ return [
     'Enter current password' => 'Hozirgi parolni kiriting',
     'Enter new password' => 'Yangi parolni kiriting',
     'Confirm password' => 'Parolni tasdiqlang',
+    'Image' => 'Rasm',
+    'Image Preview' => 'Rasmni ko\'rish',
 ];

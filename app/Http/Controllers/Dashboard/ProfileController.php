@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Prfile\ProfilePasswordUpdateRequest;
-use App\Http\Requests\Prfile\ProfileRequest;
+use App\Http\Requests\Profile\ProfilePasswordUpdateRequest;
+use App\Http\Requests\Profile\ProfileRequest;
 use Illuminate\Support\Facades\Hash;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -23,9 +24,20 @@ class ProfileController extends Controller
              * @var User
              */
             $user = auth()->user();
+
+            $imagePath = $user->image;
+            if ($request->hasFile('profile_image')) {
+                if (Storage::exists('/public/' . $user->image)) {
+                    Storage::delete('/public/' . $user->image);
+                }
+                // Store the image in a directory: 'public/users/'
+                $imagePath = $request->file('profile_image')->store('users', 'public');
+            }
+
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'profile_image' => $imagePath,
             ]);
 
             toastr('Updated successfully');

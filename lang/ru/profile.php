@@ -15,4 +15,6 @@ return [
     'Enter current password' => 'Введите текущий пароль',
     'Enter new password' => 'Введите новый пароль',
     'Confirm password' => 'Подтвердите пароль',
+    'Image' => 'Изображение',
+    'Image Preview' => 'Предпросмотр изображения',
 ];

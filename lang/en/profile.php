@@ -15,4 +15,6 @@ return [
     'Enter current password' => 'Enter current password',
     'Enter new password' => 'Enter new password',
     'Confirm password' => 'Confirm password',
+    'Image' => 'Image',
+    'Image Preview' => 'Image Preview',
 ];

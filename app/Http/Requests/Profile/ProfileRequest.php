@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Prfile;
+namespace App\Http\Requests\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,7 +23,8 @@ class ProfileRequest extends FormRequest
     {
         return [
             'email' => 'required|email|unique:users,email,' . auth()->user()->id,
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }
