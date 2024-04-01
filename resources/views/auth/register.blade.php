@@ -8,7 +8,7 @@ v<!doctype html>
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
 
-    @include('includes.styles')
+    @include('admin.includes.styles')
 </head>
 
 <body class="authentication-bg">
@@ -86,7 +86,7 @@ v<!doctype html>
         </div>
     </div>
 
-    @include('includes.scripts')
+    @include('admin.includes.scripts')
 </body>
 
 </html>
