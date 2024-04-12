@@ -81,6 +81,13 @@ services:
             - ".:/minible-frame"
         depends_on:
             - minible-frame
+    adminer:
+        image: adminer
+        restart: always
+        networks:
+            - nginx_network
+        ports:
+            - "8080:8080"
 
 networks:
     nginx_network:
@@ -89,6 +96,7 @@ networks:
         driver: overlay
         name: "global"
         attachable: true
+        external: true
 volumes:
     minible-frame-database:
         driver: local
