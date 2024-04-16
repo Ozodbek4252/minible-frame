@@ -40,14 +40,14 @@
                                                 class="form-control" disabled id="profile-image">
                                         </div>
                                     </div>
-                                    @if ($user->profile_image)
+                                    @if (isset($user->images))
                                         <div class="row mb-4">
                                             <label for="profile-image"
                                                 class="col-sm-3 col-form-label">{{ __('profile.Image Preview') }}</label>
                                             <div class="col-sm-9">
-                                                <img @if ($user->profile_image == null || !Storage::exists('/public/' . $user->profile_image)) src="{{ asset('assets/images/user-regular-204.png') }}"
+                                                <img @if (!isset($user->image)) src="{{ asset('assets/images/user-regular-204.png') }}"
                                                     @else
-                                                        src="{{ asset('storage/' . $user->profile_image) }}" @endif
+                                                        src="{{ $user->image }}" @endif
                                                     style="width: 200px; height: auto;" alt="">
                                             </div>
                                         </div>

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Collection;
 
 /**
  * @package App\Models
@@ -22,6 +23,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
+ *
+ * @property Image[]|Collection $images
  */
 class User extends Authenticatable
 {
@@ -61,4 +64,9 @@ class User extends Authenticatable
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }

@@ -5,15 +5,30 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\ProfilePasswordUpdateRequest;
 use App\Http\Requests\Profile\ProfileRequest;
+use App\Models\User;
+use App\Traits\ImageTrait;
 use Illuminate\Support\Facades\Hash;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+    use ImageTrait;
+
     public function index()
     {
         $user = auth()->user();
+
+        $images = collect($user->images)->groupBy('type')->map(function ($image) {
+            return $image->first();
+        });
+        $user->images = $images;
+        $user->image_medium = isset($user->images['medium']) ? $user->images['medium']->full_path : null;
+        $user->image_thumbnail = isset($user->images['thumbnail']) ? $user->images['thumbnail']->full_path : null;
+        $user->image_original = isset($user->images['original']) ? $user->images['original']->full_path : null;
+
+        $user->image = $user->image_medium ?? $user->image_original ?? $user->image_thumbnail ?? null;
+
         return view('admin.profile.index', compact('user'));
     }
 
@@ -25,20 +40,21 @@ class ProfileController extends Controller
              */
             $user = auth()->user();
 
-            $imagePath = $user->image;
-            if ($request->hasFile('profile_image')) {
-                if (Storage::exists('/public/' . $user->image)) {
-                    Storage::delete('/public/' . $user->image);
-                }
-                // Store the image in a directory: 'public/users/'
-                $imagePath = $request->file('profile_image')->store('users', 'public');
-            }
-
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'profile_image' => $imagePath,
             ]);
+
+            if ($request->hasFile('profile_image')) {
+                foreach ($user->images as $image) {
+                    if (Storage::exists('/public/' . $image->path)) {
+                        Storage::delete('/public/' . $image->path);
+                    }
+                    $image->delete();
+                }
+
+                $this->storeImage($request->file('profile_image'), 'users', User::class, $user->id);
+            }
 
             toastr('Updated successfully');
 
