@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use App\Models\Image as ImageModel;
-use Image;
+use Intervention\Image\Facades\Image;
 
 trait ImageTrait
 {
@@ -19,23 +19,6 @@ trait ImageTrait
     protected $imagebleId;
     protected $imageableType;
     protected $extension;
-
-    public function init($imageRequest, $directory, $imageableType, $imagebleId)
-    {
-        $this->directory = $directory;
-        $this->imagebleId = $imagebleId;
-        $this->imageableType = $imageableType;
-        $this->photo_name = Str::random(20);
-        $this->mime_type = $imageRequest->getMimeType();
-        $this->extension = $imageRequest->getClientOriginalExtension();
-        $this->createDirectory();
-        $this->width = Image::make($imageRequest)->width();
-        $this->height = Image::make($imageRequest)->height();
-        $this->img = Image::make($imageRequest);
-
-        // backup status
-        $this->img->backup();
-    }
 
     public function storeImage($imageRequest, $directory, $imageableType, $imagebleId): void
     {
@@ -70,6 +53,61 @@ trait ImageTrait
 
             $this->createImage($path, $type, $sizeInBytes);
         }
+    }
+
+    public function convertToWebP($imageRequest, $directory, $imageableType, $imagebleId, $type = 'original')
+    {
+        $this->directory = $directory;
+        $this->imagebleId = $imagebleId;
+        $this->imageableType = $imageableType;
+        $this->type = $type;
+        $this->photo_name = Str::random(20);
+        $this->mime_type = 'image/webp';
+        $this->extension = 'webp';
+
+        // Create the directory if it does not exist
+        $publicDirectory = storage_path('app/public') . '/' . $this->directory;
+        if (!file_exists($publicDirectory)) {
+            mkdir($publicDirectory, 0700, true);
+        }
+
+        if (function_exists('imagewebp')) {
+            // Convert image to WebP format
+            $webpImage = Image::make($imageRequest)
+                ->encode('webp', 100);
+
+            // Save the WebP image to storage or serve directly to the client
+            $webpImagePath = $directory . '/' . $this->photo_name . '.webp';
+            Storage::put('public/' . $webpImagePath, $webpImage->stream());
+
+            $imagePath = Storage::path('public/' . $webpImagePath);
+
+            // Get the size of the image in bytes
+            $sizeInBytes = File::size($imagePath);
+
+            $this->createImage($webpImagePath, 'original', $sizeInBytes);
+
+            return ['webp_image_url' => $webpImagePath];
+        } else {
+            return ['error' => 'GD library does not support WebP.'];
+        }
+    }
+
+    private function init($imageRequest, $directory, $imageableType, $imagebleId)
+    {
+        $this->directory = $directory;
+        $this->imagebleId = $imagebleId;
+        $this->imageableType = $imageableType;
+        $this->photo_name = Str::random(20);
+        $this->mime_type = $imageRequest->getMimeType();
+        $this->extension = $imageRequest->getClientOriginalExtension();
+        $this->createDirectory();
+        $this->width = Image::make($imageRequest)->width();
+        $this->height = Image::make($imageRequest)->height();
+        $this->img = Image::make($imageRequest);
+
+        // backup status
+        $this->img->backup();
     }
 
     private function storeOriginalImage()

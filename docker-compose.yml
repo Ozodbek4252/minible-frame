@@ -1,8 +1,8 @@
-version: "3.8"
+version: "4"
 
 services:
     minible-frame:
-        image: kooldev/php:8.3
+        image: kooldev/php:8.1
         container_name: minible-frame
         working_dir: /minible-frame
         restart: always
